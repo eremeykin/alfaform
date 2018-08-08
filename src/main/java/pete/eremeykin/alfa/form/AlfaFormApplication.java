@@ -7,8 +7,8 @@ import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication
 @ImportResource("classpath:config.xml")
-public class AlfaForm {
+public class AlfaFormApplication {
     public static void main(String[] args)  throws Throwable{
-            SpringApplication.run(AlfaForm.class, args);
+            SpringApplication.run(AlfaFormApplication.class, args);
     }
 }

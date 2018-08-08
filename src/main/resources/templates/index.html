@@ -1,112 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pete Bank</title>
-
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/main.css">
-
-    <!--  jQuery -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <!-- Bootstrap Date-Picker Plugin -->
-    <script type="text/javascript"
-            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-</head>
+<html lang="ru" th:replace="~{fragments/layout :: layout (~{::body},'home')}">
 <body>
-<div class="navbar navbar-inverse">
-    <div class="container">
-        <a class="navbar-brand logo" href="#"><span>P</span>ETE <span>B</span>ANK</a>
+<h2>Регистрационная форма</h2>
+<br>
+<form class="reg-form">
+    <div class="form-group row">
+        <label for="reg-email" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="reg-email" placeholder="email@example.com"
+                   value="">
+        </div>
     </div>
-</div>
-
-<div class="container">
-    <div id="formbase">
-        <div class="col-lg-8 col-lg-offset-2">
-            <h2>Регистрационная форма</h2>
-            <br>
-            <form class="reg-form">
-                <div class="form-group row">
-                    <label for="reg-email" class="col-sm-2 col-form-label">Email</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="reg-email" placeholder="email@example.com"
-                               value="">
-                    </div>
+    <div class="form-group row">
+        <label for="reg-password" class="col-sm-2 col-form-label">Пароль</label>
+        <div class="col-sm-10">
+            <input type="password" class="form-control" id="reg-password" placeholder="password-123">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="reg-first-name" class="col-sm-2 col-form-label">Имя</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="reg-first-name" placeholder="Иван">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="reg-last-name" class="col-sm-2 col-form-label">Фамилия</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="reg-last-name" placeholder="Карпов">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="reg-patronymic" class="col-sm-2 col-form-label">Отчество</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="reg-patronymic" placeholder="Сергеевич">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-sm-2" for="reg-date">
+            Дата рождения
+        </label>
+        <div class="col-sm-10">
+            <div class="input-group">
+                <input class="form-control" id="reg-date" name="date" placeholder="ДД.ММ.ГГГГ" type="text"/>
+                <div class="input-group-addon">
+                    <i class="glyphicon glyphicon-calendar"></i>
                 </div>
-                <div class="form-group row">
-                    <label for="reg-password" class="col-sm-2 col-form-label">Пароль</label>
-                    <div class="col-sm-10">
-                        <input type="password" class="form-control" id="reg-password" placeholder="password-123">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="reg-first-name" class="col-sm-2 col-form-label">Имя</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="reg-first-name" placeholder="Иван">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="reg-last-name" class="col-sm-2 col-form-label">Фамилия</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="reg-last-name" placeholder="Карпов">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="reg-patronymic" class="col-sm-2 col-form-label">Отчество</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="reg-patronymic" placeholder="Сергеевич">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="control-label col-sm-2" for="reg-date">
-                        Дата рождения
-                    </label>
-                    <div class="col-sm-10">
-                        <div class="input-group">
-                            <input class="form-control" id="reg-date" name="date" placeholder="ДД.ММ.ГГГГ" type="text"/>
-                            <div class="input-group-addon">
-                                <i class="glyphicon glyphicon-calendar"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="reg-sex" class="col-sm-2 col-form-label">Пол</label>
-                    <div class="col-sm-10" id="reg-sex">
-                        <div class="radio">
-                            <label><input type="radio" name="reg-sex" checked>Мужской</label>
-                        </div>
-                        <div class="radio">
-                            <label><input type="radio" name="reg-sex">Женский</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="reg-address" class="col-sm-2 col-form-label">Адрес</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="reg-address" placeholder="г. Москва, ул. Маросейка, д.9">
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="reg-inn" class="col-sm-2 col-form-label">ИНН</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="reg-inn" placeholder="15 45 345624 54">
-                    </div>
-                </div>
-
-                <div class="row" id="reg-submit" >
-                        <button type="submit" class="btn btn-primary pull-right">Отправить</button>
-                </div>
-
-            </form>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="reg-sex" class="col-sm-2 col-form-label">Пол</label>
+        <div class="col-sm-10" id="reg-sex">
+            <div class="radio">
+                <label><input type="radio" name="reg-sex" checked>Мужской</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="reg-sex">Женский</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="reg-address" class="col-sm-2 col-form-label">Адрес</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="reg-address" placeholder="г. Москва, ул. Маросейка, д.9">
         </div>
     </div>
 
-</div>
+    <div class="form-group row">
+        <label for="reg-inn" class="col-sm-2 col-form-label">ИНН</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="reg-inn" placeholder="15 45 345624 54">
+        </div>
+    </div>
+
+    <div class="row" id="reg-submit">
+        <button type="submit" class="btn btn-primary pull-right">Отправить</button>
+    </div>
+</form>
 
 <script>
     $(document).ready(function () {

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru" th:fragment="layout (template, menu)">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pete Bank</title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <!--  jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <!-- Bootstrap Date-Picker Plugin -->
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+</head>
+<body>
+<div class="navbar navbar-inverse">
+    <div class="container">
+        <a class="navbar-brand logo" href="#"><span>P</span>ETE <span>B</span>ANK</a>
+    </div>
+</div>
+
+<div class="container">
+    <div id="formbase">
+        <div class="col-lg-8 col-lg-offset-2">
+
+            <th:block th:include="${template}"/>
+
+        </div>
+    </div>
+</div>
+
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
