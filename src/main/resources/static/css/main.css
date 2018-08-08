@@ -1,0 +1,31 @@
+.logo, .logo:hover {
+    font-family: "Lato Heavy";
+    font-size: 48px;
+    font-weight: 900;
+    text-align: left;
+    color: #71dd8a;
+}
+
+.logo span {
+    font-size: 200%;
+    color: #71dd8a;
+}
+
+.navbar {
+    font-weight: 800;
+    font-size: 14px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+/*.reg-form{*/
+    /*padding-top: 15px;*/
+/*}*/
+
+#formbase {
+    padding-top: 15px;
+}
+
+#reg-submit{
+    padding-right: 15px;
+}

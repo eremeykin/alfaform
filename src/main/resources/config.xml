@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--<bean id="client" class="pete.eremeykin.alfa.test2.Client">-->
+        <!--<constructor-arg value="1"/>-->
+        <!--<constructor-arg value="Jhon Smith"/>-->
+    <!--</bean>-->
+     <!--<bean id="eventLogger" class="pete.eremeykin.alfa.test2.ConsoleEventLogger"/>-->
+    <!--<bean id="app" class="pete.eremeykin.alfa.test2.App">-->
+        <!--<constructor-arg ref="client"/>-->
+        <!--<constructor-arg ref="eventLogger"/>-->
+    <!--</bean>-->
+    <!--<bean id="event" class="pete.eremeykin.alfa.test2" scope="prototype"></bean>-->
+
+</beans>
