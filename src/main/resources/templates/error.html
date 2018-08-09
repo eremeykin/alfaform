@@ -3,7 +3,16 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body})}">
 
 <body>
-<h2>На сервере произошла ошибка.</h2>
+<h2>К сожалению, на сервере произошла ошибка.</h2>
+
+<p>
+    <a href="/">Домой</a>
+</p>
+
+<p>
+    <a href="/customers">К списоку пользователей</a>
+</p>
+
 <p th:text="${message}">Exception message</p>
 
 </body>

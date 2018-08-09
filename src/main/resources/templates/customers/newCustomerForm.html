@@ -4,93 +4,41 @@
 <h2>Регистрационная форма</h2>
 <br>
 <form class="reg-form" method="post" th:object="${customer}" action="/customers/new">
+
+    <input th:replace="~{fragments/inputField :: input ('Email', 'email', 'email@example.com', 'text')}" />
+
+    <input th:replace="~{fragments/inputField :: input ('Пароль', 'password', 'password-123', 'text')}" />
+
+    <input th:replace="~{fragments/inputField :: input ('Имя', 'firstName', 'Иван', 'text')}" />
+
+    <input th:replace="~{fragments/inputField :: input ('Фамилия', 'lastName', 'Карпов', 'text')}" />
+
+    <input th:replace="~{fragments/inputField :: input ('Отчество', 'patronymic', 'Сергеевич', 'text')}" />
+
     <div class="form-group row">
-        <label for="reg-email" class="col-sm-2 col-form-label">Email</label>
+        <label class="col-sm-2 control-label">Пол</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="reg-email" placeholder="email@example.com"
-                   value="" th:field="*{email}">
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="reg-password" class="col-sm-2 col-form-label">Пароль</label>
-        <div class="col-sm-10">
-            <input type="password" class="form-control" id="reg-password" placeholder="password-123">
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="reg-first-name" class="col-sm-2 col-form-label">Имя</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="reg-first-name" placeholder="Иван">
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="reg-last-name" class="col-sm-2 col-form-label">Фамилия</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="reg-last-name" placeholder="Карпов">
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="reg-patronymic" class="col-sm-2 col-form-label">Отчество</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="reg-patronymic" placeholder="Сергеевич">
-        </div>
-    </div>
-    <div class="form-group row">
-        <label class="control-label col-sm-2" for="reg-date">
-            Дата рождения
-        </label>
-        <div class="col-sm-10">
-            <div class="input-group">
-                <input class="form-control" id="reg-date" name="date" placeholder="ДД.ММ.ГГГГ" type="text"/>
-                <div class="input-group-addon">
-                    <i class="glyphicon glyphicon-calendar"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="reg-sex" class="col-sm-2 col-form-label">Пол</label>
-        <div class="col-sm-10" id="reg-sex">
             <div class="radio">
-                <label><input type="radio" name="reg-sex" checked>Мужской</label>
+                <label><input type="radio" name="sex" value="male" checked>Мужской</label>
             </div>
             <div class="radio">
-                <label><input type="radio" name="reg-sex">Женский</label>
+                <label><input type="radio" name="sex" value="female">Женский</label>
             </div>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="reg-address" class="col-sm-2 col-form-label">Адрес</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="reg-address" placeholder="г. Москва, ул. Маросейка, д.9">
         </div>
     </div>
 
-    <div class="form-group row">
-        <label for="reg-inn" class="col-sm-2 col-form-label">ИНН</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="reg-inn" placeholder="15 45 345624 54">
-        </div>
-    </div>
+
+    <input th:replace="~{fragments/inputField :: input ('Дата рождения', 'birthDate', 'ДД.ММ.ГГГГ', 'date')}" />
+
+    <input th:replace="~{fragments/inputField :: input ('Адрес', 'address', 'г. Москва, ул. Маросейка, д.9', 'text')}" />
+
+    <input th:replace="~{fragments/inputField :: input ('ИНН', 'inn', '15 45 345624 54', 'text')}" />
+
 
     <div class="row" id="reg-submit">
         <button type="submit" class="btn btn-primary pull-right">Отправить</button>
     </div>
 </form>
-
-<script>
-    $(document).ready(function () {
-        var date_input = $('input[name="date"]'); //our date input has the name "date"
-        var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-        var options = {
-            format: 'dd.mm.yyyy',
-            container: container,
-            todayHighlight: true,
-            autoclose: true,
-        };
-        date_input.datepicker(options);
-    })
-</script>
 <script src="js/bootstrap.min.js"></script>
 </body>
 </html>

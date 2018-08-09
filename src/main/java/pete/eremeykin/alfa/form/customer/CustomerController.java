@@ -10,16 +10,18 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.Collection;
 import java.util.Map;
 
 @Controller
 public class CustomerController {
 
-    private static final  String NEW_CUSTOMER_FORM = "customers/newCustomerForm";
+    private static final String NEW_CUSTOMER_FORM = "customers/newCustomerForm";
+    private static final String SUCCESS = "/success";
 
     private final CustomerRepository customers;
 
-    public CustomerController(CustomerRepository customers){
+    public CustomerController(CustomerRepository customers) {
         this.customers = customers;
     }
 
@@ -29,15 +31,23 @@ public class CustomerController {
     }
 
     @GetMapping("/customers/new")
-    public String initCustomerForm(Map<String, Object> model){
+    public String initCustomerForm(Map<String, Object> model) {
         Customer customer = new Customer();
         model.put("customer", customer);
         return NEW_CUSTOMER_FORM;
     }
 
     @PostMapping("/customers/new")
-    public String processCreationForm(Customer customer, BindingResult result) {
+    public String processCustomerCreationForm(Customer customer, BindingResult result) {
         this.customers.save(customer);
-        return NEW_CUSTOMER_FORM;
+        return SUCCESS;
+    }
+
+
+    @GetMapping("/customers")
+    public String processAllCustomers(Map<String, Object> model){
+        Collection<Customer> results = this.customers.findAll();
+        model.put("customers", results);
+        return "customers/customersList";
     }
 }

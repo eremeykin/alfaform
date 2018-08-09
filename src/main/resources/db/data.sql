@@ -1,1 +1,2 @@
-INSERT IGNORE INTO customers VALUES (1, 'test@example.com', 'password-123', 'Petr', 'Zhukov', 'Alekseevich', '20.04.1973', 'M', 'Moscow, Lenina, 32', '345324534552' );
+INSERT IGNORE INTO customers VALUES (1, 'zhukov@example.com', 'password-123', 'Фёдор', 'Жуков', 'Алексеевич', '20.04.1973', 'M', 'Москва, ул. Ленина д.32', '345324534552' );
+INSERT IGNORE INTO customers VALUES (2, 'i-kuzilov@company.ru', 'password-123', 'Иван', 'Кузилов', 'Петрович', '05.11.1984', 'M', 'Орёл, ул. Орджоникидзе д.7', '645737533466' );
