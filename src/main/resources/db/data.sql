@@ -1,0 +1,1 @@
+INSERT IGNORE INTO customers VALUES (1, 'test@example.com', 'password-123', 'Petr', 'Zhukov', 'Alekseevich', '20.04.1973', 'M', 'Moscow, Lenina, 32', '345324534552' );

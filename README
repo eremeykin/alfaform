@@ -1,0 +1,5 @@
+mysql>
+create database alfaform;
+create user 'user'@'localhost' identified by 'password';
+grant all on alfaform.* to 'user'@'localhost';
+flush privileges;
