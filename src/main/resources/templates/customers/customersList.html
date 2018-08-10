@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru" th:replace="~{fragments/layout :: layout (~{::body})}">
 <body>
+<div class="col-lg-12 col-lg-offset-0">
 <h2>Зарегистрированные пользователи:</h2>
 
 <table id="customers" class="table table-striped">
@@ -8,12 +9,12 @@
     <tr>
         <th style="width: 150px;">Email</th>
         <th style="width: 200px;">Пароль</th>
-        <th style="width: 120px">Имя</th>
         <th style="width: 120px">Фамилия</th>
+        <th style="width: 120px">Имя</th>
         <th style="width: 120px">Отчество</th>
         <th style="width: 120px">Дата рождения</th>
         <th style="width: 120px">Пол</th>
-        <th style="width: 120px">Адрес</th>
+        <th style="width: 240px">Адрес</th>
         <th style="width: 120px">ИНН</th>
     </tr>
     </thead>
@@ -21,17 +22,22 @@
     <tr th:each="customer : ${customers}">
         <td th:text="${customer.email}"/>
         <td th:text="${customer.password}"/>
-        <td th:text="${customer.firstName}"/>
         <td th:text="${customer.lastName}"/>
+        <td th:text="${customer.firstName}"/>
         <td th:text="${customer.patronymic}"/>
-        <td th:text="${customer.birthDate}"/>
-        <td th:text="${customer.sex}"/>
+        <td th:text="${#dates.format(customer.birthDate, 'dd.MM.yyyy')}"/>
+            <div th:switch="${customer.sex.toString()}">
+                <td th:case="'FEMALE'" th:text="Жен."/>
+                <td th:case="'MALE'" th:text="Муж."/>
+                <td th:case="*" th:text="'Err: ' + ${customer.sex}"/>
+            </div>
+        <!--<td th:text="${customer.sex}"/>-->
         <td th:text="${customer.address}"/>
         <td th:text="${customer.inn}"/>
     </tr>
     </tbody>
 </table>
-
+</div>
 <script src="js/bootstrap.min.js"></script>
 </body>
 </html>

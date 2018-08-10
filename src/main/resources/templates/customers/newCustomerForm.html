@@ -1,44 +1,46 @@
 <!DOCTYPE html>
 <html lang="ru" th:replace="~{fragments/layout :: layout (~{::body})}">
 <body>
-<h2>Регистрационная форма</h2>
-<br>
-<form class="reg-form" method="post" th:object="${customer}" action="/customers/new">
+<div class="col-lg-8 col-lg-offset-2">
+    <h2>Регистрационная форма</h2>
+    <br>
+    <form class="reg-form" method="post" th:object="${customer}" action="/customers/new">
 
-    <input th:replace="~{fragments/inputField :: input ('Email', 'email', 'email@example.com', 'text')}" />
+        <input th:replace="~{fragments/inputField :: input ('Email', 'email', 'email@example.com', 'text')}"/>
 
-    <input th:replace="~{fragments/inputField :: input ('Пароль', 'password', 'password-123', 'text')}" />
+        <input th:replace="~{fragments/inputField :: input ('Пароль', 'password', 'password-123', 'ptext')}"/>
 
-    <input th:replace="~{fragments/inputField :: input ('Имя', 'firstName', 'Иван', 'text')}" />
+        <input th:replace="~{fragments/inputField :: input ('Имя', 'firstName', 'Иван', 'text')}"/>
 
-    <input th:replace="~{fragments/inputField :: input ('Фамилия', 'lastName', 'Карпов', 'text')}" />
+        <input th:replace="~{fragments/inputField :: input ('Фамилия', 'lastName', 'Карпов', 'text')}"/>
 
-    <input th:replace="~{fragments/inputField :: input ('Отчество', 'patronymic', 'Сергеевич', 'text')}" />
+        <input th:replace="~{fragments/inputField :: input ('Отчество', 'patronymic', 'Сергеевич', 'text')}"/>
 
-    <div class="form-group row">
-        <label class="col-sm-2 control-label">Пол</label>
-        <div class="col-sm-10">
-            <div class="radio">
-                <label><input type="radio" name="sex" value="male" checked>Мужской</label>
-            </div>
-            <div class="radio">
-                <label><input type="radio" name="sex" value="female">Женский</label>
+        <div class="form-group row">
+            <label class="col-sm-2 control-label">Пол</label>
+            <div class="col-sm-10">
+                <div class="radio">
+                    <label><input type="radio" name="sex" value="MALE" checked>Мужской</label>
+                </div>
+                <div class="radio">
+                    <label><input type="radio" name="sex" value="FEMALE">Женский</label>
+                </div>
             </div>
         </div>
-    </div>
 
 
-    <input th:replace="~{fragments/inputField :: input ('Дата рождения', 'birthDate', 'ДД.ММ.ГГГГ', 'date')}" />
+        <input th:replace="~{fragments/inputField :: input ('Дата рождения', 'birthDate', 'ДД.ММ.ГГГГ', 'date')}"/>
 
-    <input th:replace="~{fragments/inputField :: input ('Адрес', 'address', 'г. Москва, ул. Маросейка, д.9', 'text')}" />
+        <input th:replace="~{fragments/inputField :: input ('Адрес', 'address', 'г. Москва, ул. Маросейка, д.9', 'text')}"/>
 
-    <input th:replace="~{fragments/inputField :: input ('ИНН', 'inn', '15 45 345624 54', 'text')}" />
+        <input th:replace="~{fragments/inputField :: input ('ИНН', 'inn', '15 45 345624 54', 'text')}"/>
 
 
-    <div class="row" id="reg-submit">
-        <button type="submit" class="btn btn-primary pull-right">Отправить</button>
-    </div>
-</form>
+        <div class="row" id="reg-submit">
+            <button type="submit" class="btn btn-primary pull-right">Отправить</button>
+        </div>
+    </form>
+</div>
 <script src="js/bootstrap.min.js"></script>
 </body>
 </html>

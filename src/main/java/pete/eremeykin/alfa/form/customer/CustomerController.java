@@ -25,9 +25,10 @@ public class CustomerController {
         this.customers = customers;
     }
 
-    @InitBinder
+    @InitBinder("customer")
     public void initCustomerBinder(WebDataBinder dataBinder) {
         dataBinder.setDisallowedFields("id");
+        dataBinder.setValidator(new CustomerValidator());
     }
 
     @GetMapping("/customers/new")
@@ -38,14 +39,18 @@ public class CustomerController {
     }
 
     @PostMapping("/customers/new")
-    public String processCustomerCreationForm(Customer customer, BindingResult result) {
-        this.customers.save(customer);
-        return SUCCESS;
+    public String processCustomerCreationForm(@Valid Customer customer, BindingResult result, ModelMap model) {
+        if (result.hasErrors()) {
+            model.put("customer", customer);
+            return NEW_CUSTOMER_FORM;
+        } else {
+            this.customers.save(customer);
+            return SUCCESS;
+        }
     }
 
-
     @GetMapping("/customers")
-    public String processAllCustomers(Map<String, Object> model){
+    public String processAllCustomers(Map<String, Object> model) {
         Collection<Customer> results = this.customers.findAll();
         model.put("customers", results);
         return "customers/customersList";

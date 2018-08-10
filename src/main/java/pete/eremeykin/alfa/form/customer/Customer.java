@@ -1,10 +1,10 @@
 package pete.eremeykin.alfa.form.customer;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import pete.eremeykin.alfa.form.model.BaseEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Date;
 
 
 @Entity
@@ -27,17 +27,18 @@ public class Customer extends BaseEntity {
     private String patronymic;
 
     @Column(name = "birth_date")
-    private String birthDate;
+    @DateTimeFormat(pattern = "dd.MM.YYYY")
+    private Date birthDate;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "sex")
-    private String sex;
+    private Sex sex;
 
     @Column(name = "address")
     private String address;
 
     @Column(name = "inn")
     private String inn;
-
 
     public String getEmail() {
         return email;
@@ -59,11 +60,11 @@ public class Customer extends BaseEntity {
         return patronymic;
     }
 
-    public String getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public String getSex() {
+    public Sex getSex() {
         return sex;
     }
 
@@ -95,11 +96,11 @@ public class Customer extends BaseEntity {
         this.patronymic = patronymic;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 
-    public void setSex(String sex) {
+    public void setSex(Sex sex) {
         this.sex = sex;
     }
 
@@ -110,4 +111,9 @@ public class Customer extends BaseEntity {
     public void setInn(String inn) {
         this.inn = inn;
     }
+
+    enum Sex {
+        MALE,FEMALE
+    }
+
 }
