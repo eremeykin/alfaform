@@ -11,7 +11,6 @@ public class CustomerValidator implements Validator {
     private static final String REQUIRED = "это поле необходимо заполнить";
     private static final String INVALID = "неверное значение";
 
-
     @Override
     public void validate(Object obj, Errors errors) {
         Customer customer = (Customer) obj;
@@ -77,11 +76,11 @@ public class CustomerValidator implements Validator {
 
     public void validateInn(String inn, Errors errors) {
         final String field = "inn";
-        if(!StringUtils.hasLength(inn)){
-            errors.rejectValue(field,REQUIRED, REQUIRED);
+        if (!StringUtils.hasLength(inn)) {
+            errors.rejectValue(field, REQUIRED, REQUIRED);
         }
-        if (inn.length()!=12){
-            errors.rejectValue(field,INVALID, "ИНН физического лица состоит из 12 цифр");
+        if (inn.length() != 12) {
+            errors.rejectValue(field, INVALID, "ИНН физического лица состоит из 12 цифр");
         }
     }
 
