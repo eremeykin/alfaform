@@ -1,15 +1,19 @@
 package pete.eremeykin.alfa.form.customer;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import pete.eremeykin.alfa.form.model.BaseEntity;
 
 import javax.persistence.*;
-import java.util.Date;
+import javax.validation.constraints.Size;
+import java.time.LocalDate;
 
 
 @Entity
 @Table(name = "customers")
-public class Customer extends BaseEntity {
+public class Customer {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @Column(name = "email")
     private String email;
@@ -27,8 +31,8 @@ public class Customer extends BaseEntity {
     private String patronymic;
 
     @Column(name = "birth_date")
-    @DateTimeFormat(pattern = "dd.MM.YYYY")
-    private Date birthDate;
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    private LocalDate birthDate;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "sex")
@@ -39,6 +43,10 @@ public class Customer extends BaseEntity {
 
     @Column(name = "inn")
     private String inn;
+
+    public Integer getId() {
+        return id;
+    }
 
     public String getEmail() {
         return email;
@@ -56,11 +64,9 @@ public class Customer extends BaseEntity {
         return lastName;
     }
 
-    public String getPatronymic() {
-        return patronymic;
-    }
+    public String getPatronymic() { return patronymic; }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
@@ -74,6 +80,10 @@ public class Customer extends BaseEntity {
 
     public String getInn() {
         return inn;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setEmail(String email) {
@@ -96,7 +106,7 @@ public class Customer extends BaseEntity {
         this.patronymic = patronymic;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -112,8 +122,8 @@ public class Customer extends BaseEntity {
         this.inn = inn;
     }
 
-    enum Sex {
-        MALE,FEMALE
+    public enum Sex {
+        MALE, FEMALE
     }
 
 }

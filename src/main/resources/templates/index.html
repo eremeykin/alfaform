@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru" th:replace="~{fragments/layout :: layout (~{::body})}">
 <body>
-<!--<h2 style="text-align: center">Привет!</h2>-->
 <h2>Привет!</h2>
 <br>
 <p>
-    <a href="/customers/new">Регистрационная форма</a>
+    <a href="/customers/new" id="form">Регистрационная форма</a>
 </p>
 <p>
-    <a href="/customers">Список пользователей</a>
+    <a href="/customers" id="list">Список пользователей</a>
 </p>
 
 <script src="js/bootstrap.min.js"></script>

@@ -4,7 +4,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.Calendar;
 
 public class CustomerValidator implements Validator {
 
@@ -15,12 +16,13 @@ public class CustomerValidator implements Validator {
     public void validate(Object obj, Errors errors) {
         Customer customer = (Customer) obj;
         validateEmail(customer.getEmail(), errors);
-        validatePassword(customer.getPassword(), errors);
+//        validatePassword(customer.getPassword(), errors);
         validateString(customer.getFirstName(), errors, "firstName");
         validateString(customer.getLastName(), errors, "lastName");
         validateBirthDate(customer.getBirthDate(), errors);
         validateString(customer.getAddress(), errors, "address");
         validateInn(customer.getInn(), errors);
+        validateSex(customer.getSex(), errors);
     }
 
     private void validateEmail(String email, Errors errors) {
@@ -49,11 +51,16 @@ public class CustomerValidator implements Validator {
         }
     }
 
-    private void validateString(String name, Errors errors, String field) {
-        if (!StringUtils.hasLength(name)) {
+    private void validateString(String string, Errors errors, String field) {
+        if (!StringUtils.hasLength(string)) {
             errors.rejectValue(field, REQUIRED, REQUIRED);
             return;
         }
+        if (string.length() > 70) {
+            errors.rejectValue(field, INVALID, "слишком длинное значение");
+            return;
+        }
+
     }
 
     private void validatePassword(String password, Errors errors) {
@@ -64,13 +71,23 @@ public class CustomerValidator implements Validator {
         }
         if (password.length() < 5) {
             errors.rejectValue(field, INVALID, "слишком короткий пароль");
+            return;
+        }
+        if (password.length() > 70) {
+            errors.rejectValue(field, INVALID, "длина пароля вне мыслимого диапазона");
+            return;
         }
     }
 
-    public void validateBirthDate(Date birthDate, Errors errors) {
+    public void validateBirthDate(LocalDate birthDate, Errors errors) {
         final String field = "birthDate";
         if (birthDate == null) {
             errors.rejectValue(field, REQUIRED, REQUIRED);
+            return;
+        }
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        if (birthDate.getYear() < 1850 || birthDate.getYear() > currentYear - 10) {
+            errors.rejectValue(field, INVALID, "значение вне допустимого диапазона");
         }
     }
 
@@ -81,6 +98,13 @@ public class CustomerValidator implements Validator {
         }
         if (inn.length() != 12) {
             errors.rejectValue(field, INVALID, "ИНН физического лица состоит из 12 цифр");
+        }
+    }
+
+    public void validateSex(Customer.Sex sex, Errors errors) {
+        final String field = "sex";
+        if (sex == null) {
+            errors.rejectValue(field, REQUIRED, REQUIRED);
         }
     }
 

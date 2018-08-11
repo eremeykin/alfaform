@@ -19,21 +19,21 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="customer : ${customers}">
-        <td th:text="${customer.email}"/>
-        <td th:text="${customer.password}"/>
-        <td th:text="${customer.lastName}"/>
-        <td th:text="${customer.firstName}"/>
-        <td th:text="${customer.patronymic}"/>
-        <td th:text="${#dates.format(customer.birthDate, 'dd.MM.yyyy')}"/>
+    <tr th:each="customer : ${customers}" th:id="${'customer_'+customer.id}">
+        <td id="email" th:text="${customer.email}"/>
+        <td id="password" th:text="${customer.password}"/>
+        <td id="lastName" th:text="${customer.lastName}"/>
+        <td id="firstName" th:text="${customer.firstName}"/>
+        <td id="patronymic" th:text="${customer.patronymic}"/>
+        <td id="birthDate" th:text="${#temporals.format(customer.birthDate, 'dd.MM.YYYY')}"/>
             <div th:switch="${customer.sex.toString()}">
-                <td th:case="'FEMALE'" th:text="Жен."/>
-                <td th:case="'MALE'" th:text="Муж."/>
-                <td th:case="*" th:text="'Err: ' + ${customer.sex}"/>
+                <td id="sex" th:case="'FEMALE'" th:text="Жен."/>
+                <td id="sex" th:case="'MALE'" th:text="Муж."/>
+                <td id="sex" th:case="*" th:text="'Err: ' + ${customer.sex}"/>
             </div>
         <!--<td th:text="${customer.sex}"/>-->
-        <td th:text="${customer.address}"/>
-        <td th:text="${customer.inn}"/>
+        <td id="address" th:text="${customer.address}"/>
+        <td id="inn" th:text="${customer.inn}"/>
     </tr>
     </tbody>
 </table>
