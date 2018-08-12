@@ -14,7 +14,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import pete.eremeykin.alfa.form.customer.Customer;
-import pete.eremeykin.alfa.form.utils.IvanChelovekov;
 import pete.eremeykin.alfa.form.utils.ValidRandomCustomer;
 
 import java.nio.charset.Charset;
@@ -30,12 +29,9 @@ import static org.hamcrest.Matchers.equalTo;
 @AutoConfigureMockMvc
 public class RawPostTest extends SeleniumTest {
 
-    Customer ivan;
-
-    @Before
-    public void setIvan() {
-        ivan = new IvanChelovekov();
-    }
+    private HttpClient httpClient;
+    private HttpPost httpPost;
+    private Set<MyNameValue> httpParams;
 
     private class MyNameValue extends BasicNameValuePair {
         MyNameValue(String name, String value) {
@@ -55,57 +51,54 @@ public class RawPostTest extends SeleniumTest {
         }
     }
 
-    private void fillParams(Set<MyNameValue> params, Customer customer) {
-        params.add(new MyNameValue("email", customer.getEmail()));
-        params.add(new MyNameValue("password", customer.getPassword()));
-        params.add(new MyNameValue("firstName", customer.getFirstName()));
-        params.add(new MyNameValue("lastName", customer.getLastName()));
-        params.add(new MyNameValue("patronymic", customer.getPatronymic()));
-        params.add(new MyNameValue("sex", customer.getSex().toString()));
+    private void fillParams(Customer customer) {
+        httpParams.add(new MyNameValue("email", customer.getEmail()));
+        httpParams.add(new MyNameValue("password", customer.getPassword()));
+        httpParams.add(new MyNameValue("firstName", customer.getFirstName()));
+        httpParams.add(new MyNameValue("lastName", customer.getLastName()));
+        httpParams.add(new MyNameValue("patronymic", customer.getPatronymic()));
+        httpParams.add(new MyNameValue("sex", customer.getSex().toString()));
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd.MM.YYYY");
-        params.add(new MyNameValue("birthDate", customer.getBirthDate().format(fmt)));
-        params.add(new MyNameValue("address", customer.getAddress()));
-        params.add(new MyNameValue("inn", customer.getInn()));
+        httpParams.add(new MyNameValue("birthDate", customer.getBirthDate().format(fmt)));
+        httpParams.add(new MyNameValue("address", customer.getAddress()));
+        httpParams.add(new MyNameValue("inn", customer.getInn()));
+    }
+
+    @Before
+    public void prepareHttpClient(){
+        httpClient = HttpClients.createDefault();
+        httpPost = new HttpPost(homeUrl + "/customers/new");
+        httpParams = new HashSet<>(9);
+    }
+
+    private int countCustomersTableRows(){
+        driver.get(homeUrl + "/customers");
+        return driver.findElements(By.tagName("tr")).size();
     }
 
     @Test
     public void testPostNewValidRandomCustomer() throws Exception {
-        driver.get(homeUrl + "/customers");
-        int before = driver.findElements(By.tagName("tr")).size();
-
-        HttpClient httpclient = HttpClients.createDefault();
-        HttpPost httppost = new HttpPost(homeUrl + "/customers/new");
-        Set<MyNameValue> params = new HashSet<>(9);
+        int rowsBefore = countCustomersTableRows();
         Customer customer = new ValidRandomCustomer();
-        fillParams(params, customer);
-        httppost.setEntity(new UrlEncodedFormEntity(params, Charset.forName("UTF-8")));
-
-        httpclient.execute(httppost);
-
-        driver.get(homeUrl + "/customers");
-        int after = driver.findElements(By.tagName("tr")).size();
+        fillParams(customer);
+        httpPost.setEntity(new UrlEncodedFormEntity(httpParams, Charset.forName("UTF-8")));
+        httpClient.execute(httpPost);
+        int rowsAfter  = countCustomersTableRows();
         assertThat(isSaved(customer), equalTo(true));
-        assertThat(after, equalTo(before + 1));
+        assertThat(rowsAfter, equalTo(rowsBefore + 1));
     }
 
     @Test
     public void testPostWrongDateFormat() throws Exception {
-        driver.get(homeUrl + "/customers");
-        int before = driver.findElements(By.tagName("tr")).size();
-
-        HttpClient httpclient = HttpClients.createDefault();
-        HttpPost httppost = new HttpPost(homeUrl + "/customers/new");
-        Set<MyNameValue> params = new HashSet<>(9);
+        int rowsBefore = countCustomersTableRows();
         Customer customer = new ValidRandomCustomer();
-        fillParams(params, customer);
-        params.add(new MyNameValue("birthDate", "1984.04.17"));
-        httppost.setEntity(new UrlEncodedFormEntity(params, Charset.forName("UTF-8")));
-
-        httpclient.execute(httppost);
-
-        driver.get(homeUrl + "/customers");
-        int after = driver.findElements(By.tagName("tr")).size();
+        fillParams(customer);
+        httpParams.add(new MyNameValue("birthDate", "1984.04.17"));
+        httpPost.setEntity(new UrlEncodedFormEntity(httpParams, Charset.forName("UTF-8")));
+        httpClient.execute(httpPost);
+        int rowsAfter = countCustomersTableRows();
         assertThat(isSaved(customer), equalTo(false));
-        assertThat(after, equalTo(before));//TODO fix this test
+        // invalid user must not be inserted !
+        assertThat(rowsAfter, equalTo(rowsBefore));//TODO fix this test
     }
 }

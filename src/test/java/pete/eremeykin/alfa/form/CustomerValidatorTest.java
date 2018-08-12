@@ -1,6 +1,5 @@
 package pete.eremeykin.alfa.form;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.invocation.InvocationOnMock;
@@ -11,7 +10,8 @@ import pete.eremeykin.alfa.form.customer.Customer;
 import pete.eremeykin.alfa.form.customer.CustomerValidator;
 import pete.eremeykin.alfa.form.utils.IvanChelovekov;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -33,9 +33,7 @@ public class CustomerValidatorTest {
 
     ErrorsAnswer answer;
 
-
     @Before
-    @After
     public void setValidCustomer() {
         ivan = new IvanChelovekov();
     }
@@ -45,7 +43,7 @@ public class CustomerValidatorTest {
         validator = new CustomerValidator();
     }
 
-    class ErrorsAnswer implements Answer<Void> {
+    private class ErrorsAnswer implements Answer<Void> {
 
         private final List<ErrorsRecord> records = new ArrayList<>();
 
@@ -54,7 +52,7 @@ public class CustomerValidatorTest {
             String errorCode;
             String defaultMessage;
 
-            public ErrorsRecord(String field, String errorCode, String defaultMessage) {
+            ErrorsRecord(String field, String errorCode, String defaultMessage) {
                 this.field = field;
                 this.errorCode = errorCode;
                 this.defaultMessage = defaultMessage;
@@ -84,11 +82,8 @@ public class CustomerValidatorTest {
     public void testSupportsCustomer() {
         assertThat(validator.supports(Customer.class), equalTo(true));
         assertThat(validator.supports(CustomerValidator.class), equalTo(false));
-
         class CustomerChild extends Customer {
-
         }
-
         assertThat(validator.supports(CustomerChild.class), equalTo(true));
         assertThat(validator.supports(Object.class), equalTo(false));
         assertThat(validator.supports(ivan.getClass()), equalTo(true));
@@ -100,32 +95,25 @@ public class CustomerValidatorTest {
         assertThat(answer.records, hasSize(0));
     }
 
-
     @Test
     public void testEmptyFirstName() {
         ivan.setFirstName("");
         validator.validate(ivan, mockErrors);
-        assertThat(answer.records, hasSize(1));
-        assertThat(answer.records.get(0).field, equalTo("firstName"));
-        assertThat(answer.records.get(0).errorCode, equalTo(REQUIRED));
+        assertFieldRequired("firstName");
     }
 
     @Test
     public void testEmptyLastName() {
         ivan.setLastName("");
         validator.validate(ivan, mockErrors);
-        assertThat(answer.records, hasSize(1));
-        assertThat(answer.records.get(0).field, equalTo("lastName"));
-        assertThat(answer.records.get(0).errorCode, equalTo(REQUIRED));
+        assertFieldRequired("lastName");
     }
 
     @Test
     public void testEmptyEmail() {
         ivan.setEmail("");
         validator.validate(ivan, mockErrors);
-        assertThat(answer.records, hasSize(1));
-        assertThat(answer.records.get(0).field, equalTo("email"));
-        assertThat(answer.records.get(0).errorCode, equalTo(REQUIRED));
+        assertFieldRequired("email");
     }
 
     @Test
@@ -135,25 +123,25 @@ public class CustomerValidatorTest {
         assertEmailInvalid();
     }
 
-  private void assertEmailInvalid(){
-        boolean oneInvalid = false;
-        for (ErrorsAnswer.ErrorsRecord rec : answer.records){
-            if (rec.field.equals("email") && rec.errorCode.equals(INVALID)){
-                return;
-            }
-        }
-        fail("Email is not invalid");
-  }
-
     @Test
     public void testEmptyPassword() {
         ivan.setPassword("");
         validator.validate(ivan, mockErrors);
+        assertFieldRequired("password");
+    }
+
+    private void assertFieldRequired(String field) {
         assertThat(answer.records, hasSize(1));
-        assertThat(answer.records.get(0).field, equalTo("password"));
+        assertThat(answer.records.get(0).field, equalTo(field));
         assertThat(answer.records.get(0).errorCode, equalTo(REQUIRED));
     }
 
-
-
+    private void assertEmailInvalid() {
+        boolean oneInvalid = false;
+        for (ErrorsAnswer.ErrorsRecord rec : answer.records) {
+            if (rec.field.equals("email") && rec.errorCode.equals(INVALID))
+                return;
+        }
+        fail("Email is not invalid");
+    }
 }

@@ -1,22 +1,17 @@
 package pete.eremeykin.alfa.form;
 
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
-import java.util.Properties;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -25,6 +20,10 @@ import static org.hamcrest.Matchers.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 public class SeleniumSmokeTest extends SeleniumTest {
+
+
+    @Value("${spring.datasource.initialization-mode}")
+    private String initMode;
 
 
     @Test
@@ -42,8 +41,8 @@ public class SeleniumSmokeTest extends SeleniumTest {
     @Test
     public void testStylesheetsAndJavaScriptLoad() {
         testCssAndJs(homeUrl);
-        testCssAndJs(homeUrl+"/customers");
-        testCssAndJs(homeUrl+"/customers/new");
+        testCssAndJs(homeUrl + "/customers");
+        testCssAndJs(homeUrl + "/customers/new");
     }
 
     private void testCssAndJs(String url) {
@@ -103,8 +102,13 @@ public class SeleniumSmokeTest extends SeleniumTest {
         }
     }
 
+
+    /**
+     * This test should run when DB init is active
+     */
     @Test
     public void testInitialTableState() throws IOException {
+        org.junit.Assume.assumeTrue(initMode.equals("always"));
         driver.get(homeUrl + "/customers");
         WebElement table = driver.findElement(By.id("customers"));
         String tableText = table.getText();
@@ -116,5 +120,4 @@ public class SeleniumSmokeTest extends SeleniumTest {
         assertThat(tableText, not(containsString("Err"))); // there is no problem with sex field
         assertThat(tableText, not(containsString("???"))); // there is no encoding problem
     }
-
 }

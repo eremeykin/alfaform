@@ -23,14 +23,6 @@ import static org.junit.Assert.fail;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 public class SeleniumFormTest extends SeleniumTest {
-
-    Customer ivan;
-
-    @Before
-    public void setIvan() {
-        ivan = new IvanChelovekov();
-    }
-
     private void setCustomerToForm(Customer customer) {
         WebElement email = driver.findElement(By.id("email"));
         email.sendKeys(customer.getEmail());

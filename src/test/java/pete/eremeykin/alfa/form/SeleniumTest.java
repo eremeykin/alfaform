@@ -1,22 +1,15 @@
 package pete.eremeykin.alfa.form;
 
 import org.junit.Before;
-import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.test.context.junit4.SpringRunner;
 import pete.eremeykin.alfa.form.customer.Customer;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Properties;
 
 public class SeleniumTest extends BasicTest {
 
@@ -28,7 +21,7 @@ public class SeleniumTest extends BasicTest {
         driver = new HtmlUnitDriver();
     }
 
-    protected boolean corresponds(WebElement element, Customer customer) {
+    private boolean corresponds(WebElement element, Customer customer) {
         try {
             if (!customer.getEmail().equals(element.findElement(By.id("email")).getText())) {
                 return false;
@@ -66,7 +59,7 @@ public class SeleniumTest extends BasicTest {
         return true;
     }
 
-    protected boolean isSaved(Customer customer){
+    boolean isSaved(Customer customer) {
         driver.get(homeUrl + "/customers");
         List<WebElement> trs = driver.findElements(By.tagName("tr"));
 

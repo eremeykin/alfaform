@@ -124,5 +124,4 @@ public class Customer {
     public enum Sex {
         MALE, FEMALE
     }
-
 }

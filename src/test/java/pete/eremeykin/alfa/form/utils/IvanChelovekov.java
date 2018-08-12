@@ -3,7 +3,6 @@ package pete.eremeykin.alfa.form.utils;
 import pete.eremeykin.alfa.form.customer.Customer;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 // just a sample valid user
 public class IvanChelovekov extends Customer {
@@ -19,5 +18,4 @@ public class IvanChelovekov extends Customer {
         this.setAddress("г. Москва, ул. Пешеходная, д. 3");
         this.setInn("414509012402");
     }
-
 }

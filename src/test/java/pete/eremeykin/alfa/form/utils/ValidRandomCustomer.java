@@ -1,13 +1,9 @@
 package pete.eremeykin.alfa.form.utils;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import pete.eremeykin.alfa.form.customer.Customer;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -50,15 +46,16 @@ public class ValidRandomCustomer extends Customer {
         this.setLastName(lastNames.get(random.nextInt(lastNames.size())));
         this.setPatronymic(patronymics.get(random.nextInt(patronymics.size())));
 
-
         int year = random.nextInt(30) + 1970;
         int month = random.nextInt(12)+1;
         int day = random.nextInt(28)+1;
         this.setBirthDate(LocalDate.of(year, month, day));
+
         String city = cities.get(random.nextInt(cities.size()));
         String street = streets.get(random.nextInt(streets.size()));
         int num = random.nextInt(50) + 1;
-        this.setAddress("г. " + city + " " + street + " д." + num);
+        this.setAddress("г. " + city + ", " + street + ", д." + num);
+
         int inn1 = random.nextInt(990000) + 010000;
         int inn2 = random.nextInt(1000000);
         this.setInn(String.format("%06d%06d", inn1, inn2).substring(0, 12));
