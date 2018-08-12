@@ -23,11 +23,10 @@
                     <label><input type="radio" name="sex" value="MALE" checked id="msex">Мужской</label>
                 </div>
                 <div class="radio">
-                    <label><input type="radio" name="sex" value="FEMALE"  id="fsex">Женский</label>
+                    <label><input type="radio" name="sex" value="FEMALE" id="fsex">Женский</label>
                 </div>
             </div>
         </div>
-
 
         <input th:replace="~{fragments/inputField :: input ('Дата рождения', 'birthDate', 'ДД.ММ.ГГГГ', 'date')}"/>
 
@@ -35,12 +34,10 @@
 
         <input th:replace="~{fragments/inputField :: input ('ИНН', 'inn', '15 45 345624 54', 'text')}"/>
 
-
         <div class="row" id="reg-submit">
             <button type="submit" class="btn btn-primary pull-right">Отправить</button>
         </div>
     </form>
 </div>
-<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

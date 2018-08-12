@@ -16,7 +16,7 @@ public class CustomerValidator implements Validator {
     public void validate(Object obj, Errors errors) {
         Customer customer = (Customer) obj;
         validateEmail(customer.getEmail(), errors);
-//        validatePassword(customer.getPassword(), errors);
+        validatePassword(customer.getPassword(), errors);
         validateString(customer.getFirstName(), errors, "firstName");
         validateString(customer.getLastName(), errors, "lastName");
         validateBirthDate(customer.getBirthDate(), errors);
@@ -37,16 +37,12 @@ public class CustomerValidator implements Validator {
             return;
         }
         String left = emailParts[0];
+        String right = emailParts[1];
         if (!StringUtils.hasLength(left)) {
             errors.rejectValue(field, INVALID, "имя пользователя в email не должно быть пустым");
-            return;
-        }
-        String right = emailParts[1];
-        if (!StringUtils.hasLength(right)) {
+        } else if (!StringUtils.hasLength(right)) {
             errors.rejectValue(field, INVALID, "домен email не должен быть пустым");
-            return;
-        }
-        if (!StringUtils.hasText(".")) {
+        } else if (!StringUtils.hasText(".")) {
             errors.rejectValue(field, INVALID, "домен email должен содержать точку");
         }
     }
@@ -54,39 +50,28 @@ public class CustomerValidator implements Validator {
     private void validateString(String string, Errors errors, String field) {
         if (!StringUtils.hasLength(string)) {
             errors.rejectValue(field, REQUIRED, REQUIRED);
-            return;
-        }
-        if (string.length() > 70) {
+        } else if (string.length() > 70) {
             errors.rejectValue(field, INVALID, "слишком длинное значение");
-            return;
         }
-
     }
 
     private void validatePassword(String password, Errors errors) {
         final String field = "password";
         if (!StringUtils.hasLength(password)) {
             errors.rejectValue(field, REQUIRED, REQUIRED);
-            return;
-        }
-        if (password.length() < 5) {
+        } else if (password.length() < 5) {
             errors.rejectValue(field, INVALID, "слишком короткий пароль");
-            return;
-        }
-        if (password.length() > 70) {
+        } else if (password.length() > 70) {
             errors.rejectValue(field, INVALID, "длина пароля вне мыслимого диапазона");
-            return;
         }
     }
 
     public void validateBirthDate(LocalDate birthDate, Errors errors) {
         final String field = "birthDate";
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
         if (birthDate == null) {
             errors.rejectValue(field, REQUIRED, REQUIRED);
-            return;
-        }
-        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        if (birthDate.getYear() < 1850 || birthDate.getYear() > currentYear - 10) {
+        } else if (birthDate.getYear() < 1850 || birthDate.getYear() > currentYear - 10) {
             errors.rejectValue(field, INVALID, "значение вне допустимого диапазона");
         }
     }
@@ -95,8 +80,7 @@ public class CustomerValidator implements Validator {
         final String field = "inn";
         if (!StringUtils.hasLength(inn)) {
             errors.rejectValue(field, REQUIRED, REQUIRED);
-        }
-        if (inn.length() != 12) {
+        } else if (inn.length() != 12) {
             errors.rejectValue(field, INVALID, "ИНН физического лица состоит из 12 цифр");
         }
     }
@@ -112,5 +96,4 @@ public class CustomerValidator implements Validator {
     public boolean supports(Class<?> clazz) {
         return Customer.class.isAssignableFrom(clazz);
     }
-
 }

@@ -16,5 +16,4 @@ public interface CustomerRepository extends Repository<Customer, Integer> {
     Collection<Customer> findAll();
 
     void save(Customer customer);
-
 }

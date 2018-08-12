@@ -1,24 +1,19 @@
 <!DOCTYPE html>
 <html lang="ru" th:fragment="layout (template)">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pete Bank</title>
-
     <!--webjars bootstrap-->
     <link id="bootstrap-css" rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
     <script id="bootstrap-js" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-
-    <!--my own style-->
+    <!--my main style-->
     <link id="main-css" rel="stylesheet" th:href="@{/css/main.css}">
-
     <!--webjars jquery-->
     <script id="jquery-js" th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <!--datepicker-->
     <script id="datepicker-js" type="text/javascript" th:src="@{/js/bootstrap-datepicker.min.js}"></script>
     <link id="datepicker-css" rel="stylesheet" th:href="@{/css/bootstrap-datepicker3.css}">
-
 </head>
 <body>
 <div class="navbar navbar-inverse">
@@ -26,12 +21,10 @@
         <a class="navbar-brand logo" href="/"><span>P</span>ETE <span>B</span>ANK</a>
     </div>
 </div>
-
 <div class="container">
     <div id="base">
             <th:block th:include="${template}"/>
     </div>
 </div>
-
 </body>
 </html>

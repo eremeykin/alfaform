@@ -1,5 +1,4 @@
 -- CREATE DATABASE IF NOT EXISTS alfaform$$
--- GRANT ALL ON alfaform.* TO 'user'@'localhost' IDENTIFIED BY 'password'$$
 ALTER DATABASE alfaform
   DEFAULT CHARACTER SET utf8
   DEFAULT COLLATE utf8_general_ci$$

@@ -1,43 +1,42 @@
 <!DOCTYPE html>
-<html lang="ru" th:replace="~{fragments/layout :: layout (~{::body})}">
+<html lang="ru" th:replace="~{fragments/layout :: layout (~{::body})}" xmlns:th="http://www.w3.org/1999/xhtml">
 <body>
 <div class="col-lg-12 col-lg-offset-0">
-<h2>Зарегистрированные пользователи:</h2>
-
-<table id="customers" class="table table-striped">
-    <thead>
-    <tr>
-        <th style="width: 150px;">Email</th>
-        <th style="width: 200px;">Пароль</th>
-        <th style="width: 120px">Фамилия</th>
-        <th style="width: 120px">Имя</th>
-        <th style="width: 120px">Отчество</th>
-        <th style="width: 120px">Дата рождения</th>
-        <th style="width: 120px">Пол</th>
-        <th style="width: 240px">Адрес</th>
-        <th style="width: 120px">ИНН</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="customer : ${customers}" th:id="${'customer_'+customer.id}">
-        <td id="email" th:text="${customer.email}"/>
-        <td id="password" th:text="${customer.password}"/>
-        <td id="lastName" th:text="${customer.lastName}"/>
-        <td id="firstName" th:text="${customer.firstName}"/>
-        <td id="patronymic" th:text="${customer.patronymic}"/>
-        <td id="birthDate" th:text="${#temporals.format(customer.birthDate, 'dd.MM.YYYY')}"/>
+    <h2>Зарегистрированные пользователи:</h2>
+    <br>
+    <table id="customers" class="table table-striped">
+        <thead>
+        <tr>
+            <th style="width: 150px;">Email</th>
+            <th style="width: 200px;">Пароль</th>
+            <th style="width: 120px">Фамилия</th>
+            <th style="width: 120px">Имя</th>
+            <th style="width: 120px">Отчество</th>
+            <th style="width: 120px">Дата рождения</th>
+            <th style="width: 120px">Пол</th>
+            <th style="width: 240px">Адрес</th>
+            <th style="width: 120px">ИНН</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="customer : ${customers}" th:id="${'customer_'+customer.id}">
+            <td id="email" th:text="${customer.email}"/>
+            <td id="password" th:text="${customer.password}"/>
+            <td id="lastName" th:text="${customer.lastName}"/>
+            <td id="firstName" th:text="${customer.firstName}"/>
+            <td id="patronymic" th:text="${customer.patronymic}"/>
+            <td id="birthDate" th:text="${#temporals.format(customer.birthDate, 'dd.MM.YYYY')}"/>
             <div th:switch="${customer.sex.toString()}">
                 <td id="sex" th:case="'FEMALE'" th:text="Жен."/>
                 <td id="sex" th:case="'MALE'" th:text="Муж."/>
                 <td id="sex" th:case="*" th:text="'Err: ' + ${customer.sex}"/>
             </div>
-        <!--<td th:text="${customer.sex}"/>-->
-        <td id="address" th:text="${customer.address}"/>
-        <td id="inn" th:text="${customer.inn}"/>
-    </tr>
-    </tbody>
-</table>
+            <!--<td th:text="${customer.sex}"/>-->
+            <td id="address" th:text="${customer.address}"/>
+            <td id="inn" th:text="${customer.inn}"/>
+        </tr>
+        </tbody>
+    </table>
 </div>
-<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

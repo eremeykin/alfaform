@@ -70,11 +70,11 @@ public class RawPostTest extends SeleniumTest {
 
     @Test
     public void testPostNewValidRandomCustomer() throws Exception {
-        driver.get(homeUrl+"/customers");
+        driver.get(homeUrl + "/customers");
         int before = driver.findElements(By.tagName("tr")).size();
 
         HttpClient httpclient = HttpClients.createDefault();
-        HttpPost httppost = new HttpPost(homeUrl+"/customers/new");
+        HttpPost httppost = new HttpPost(homeUrl + "/customers/new");
         Set<MyNameValue> params = new HashSet<>(9);
         Customer customer = new ValidRandomCustomer();
         fillParams(params, customer);
@@ -82,19 +82,19 @@ public class RawPostTest extends SeleniumTest {
 
         httpclient.execute(httppost);
 
-        driver.get(homeUrl+"/customers");
+        driver.get(homeUrl + "/customers");
         int after = driver.findElements(By.tagName("tr")).size();
         assertThat(isSaved(customer), equalTo(true));
-        assertThat(after, equalTo(before+1));
+        assertThat(after, equalTo(before + 1));
     }
 
     @Test
     public void testPostWrongDateFormat() throws Exception {
-        driver.get(homeUrl+"/customers");
+        driver.get(homeUrl + "/customers");
         int before = driver.findElements(By.tagName("tr")).size();
 
         HttpClient httpclient = HttpClients.createDefault();
-        HttpPost httppost = new HttpPost(homeUrl+"/customers/new");
+        HttpPost httppost = new HttpPost(homeUrl + "/customers/new");
         Set<MyNameValue> params = new HashSet<>(9);
         Customer customer = new ValidRandomCustomer();
         fillParams(params, customer);
@@ -103,9 +103,9 @@ public class RawPostTest extends SeleniumTest {
 
         httpclient.execute(httppost);
 
-        driver.get(homeUrl+"/customers");
+        driver.get(homeUrl + "/customers");
         int after = driver.findElements(By.tagName("tr")).size();
         assertThat(isSaved(customer), equalTo(false));
-        assertThat(after, equalTo(before));
+        assertThat(after, equalTo(before));//TODO fix this test
     }
 }

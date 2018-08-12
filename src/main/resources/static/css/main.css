@@ -1,15 +1,9 @@
 /*alfaform main css*/
-.centered{
-    margin: auto;
-    max-width: 300px;
-}
-
 .logo {
     font-family: "Lato Heavy";
     font-size: 48px;
     font-weight: 900;
     text-align: left;
-    color: #71dd8a;
 }
 
 .logo span {
@@ -18,8 +12,6 @@
 }
 
 .navbar {
-    font-weight: 800;
-    font-size: 14px;
     padding-top: 25px;
     padding-bottom: 25px;
 }
@@ -28,18 +20,10 @@ p{
     font-size: 24px;
 }
 
-#formbase {
+#formbase #reg-submit{
     padding-top: 15px;
 }
 
-#reg-submit{
-    padding-right: 15px;
-}
-
-.glyphicon-ok{
-    right: 15px;
-}
-
-.glyphicon-remove{
+.glyphicon{
     right: 15px;
 }

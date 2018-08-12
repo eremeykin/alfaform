@@ -3,7 +3,6 @@ package pete.eremeykin.alfa.form.customer;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 
@@ -30,13 +29,13 @@ public class Customer {
     @Column(name = "patronymic")
     private String patronymic;
 
-    @Column(name = "birth_date")
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
-    private LocalDate birthDate;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "sex")
     private Sex sex;
+
+    @Column(name = "birth_date")
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    private LocalDate birthDate;
 
     @Column(name = "address")
     private String address;
@@ -66,12 +65,12 @@ public class Customer {
 
     public String getPatronymic() { return patronymic; }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
     public Sex getSex() {
         return sex;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
     }
 
     public String getAddress() {
@@ -106,12 +105,12 @@ public class Customer {
         this.patronymic = patronymic;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
-
     public void setSex(Sex sex) {
         this.sex = sex;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
     public void setAddress(String address) {
