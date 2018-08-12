@@ -32,7 +32,7 @@ public class CustomerValidator implements Validator {
             return;
         }
         String[] emailParts = StringUtils.split(email, "@");
-        if (emailParts == null || emailParts.length != 2) {
+        if (emailParts == null|| StringUtils.countOccurrencesOf(email, "@")!=1 || emailParts.length != 2) {
             errors.rejectValue(field, INVALID, "email должен содержать ровно один символ \"@\" ");
             return;
         }
@@ -66,7 +66,7 @@ public class CustomerValidator implements Validator {
         }
     }
 
-    public void validateBirthDate(LocalDate birthDate, Errors errors) {
+    private void validateBirthDate(LocalDate birthDate, Errors errors) {
         final String field = "birthDate";
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
         if (birthDate == null) {
@@ -76,7 +76,7 @@ public class CustomerValidator implements Validator {
         }
     }
 
-    public void validateInn(String inn, Errors errors) {
+    private void validateInn(String inn, Errors errors) {
         final String field = "inn";
         if (!StringUtils.hasLength(inn)) {
             errors.rejectValue(field, REQUIRED, REQUIRED);
@@ -85,7 +85,7 @@ public class CustomerValidator implements Validator {
         }
     }
 
-    public void validateSex(Customer.Sex sex, Errors errors) {
+    private void validateSex(Customer.Sex sex, Errors errors) {
         final String field = "sex";
         if (sex == null) {
             errors.rejectValue(field, REQUIRED, REQUIRED);
